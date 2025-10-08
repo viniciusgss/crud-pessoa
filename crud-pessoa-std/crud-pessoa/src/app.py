@@ -2,12 +2,11 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from models.pessoa import Pessoa
 from controllers.pessoa_controller import PessoaController
 from database import db, init_app
+import secrets
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pessoas.db'
-import secrets
 app.config['SECRET_KEY'] = secrets.token_hex(16)  # Gera uma chave segura
-#app.config['SECRET_KEY'] = 'sua_chave_secreta_aqui'
 
 # Inicializa o banco de dados
 init_app(app)
@@ -34,7 +33,15 @@ def cadastrar_pessoa():
 
 @app.route('/listar')
 def listar_pessoas():
+    busca = request.args.get('busca', '').strip().lower()
     pessoas = Pessoa.query.all()
+
+    if busca:
+        pessoas = [
+            p for p in pessoas
+            if busca in p.nome.lower() or busca in p.sobrenome.lower() or busca in p.cpf
+        ]
+
     return render_template('listar.html', pessoas=pessoas)
 
 @app.route('/editar/<int:id>', methods=['GET', 'POST'])

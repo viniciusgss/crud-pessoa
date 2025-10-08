@@ -3,8 +3,19 @@
 {% block content %}
     <h2>Lista de Pessoas Cadastradas</h2>
     
+    <form method="GET" action="{{ url_for('listar_pessoas') }}">
+        <input 
+            type="text" 
+            name="busca" 
+            placeholder="Buscar por nome, sobrenome ou CPF" 
+            value="{{ request.args.get('busca', '') }}"
+            class="form-control mb-2"
+        >
+        <button type="submit" class="btn btn-primary mb-3">Buscar</button>
+    </form>
+
     {% if pessoas %}
-        <table>
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -34,5 +45,5 @@
     {% endif %}
     
     <a href="{{ url_for('cadastrar_pessoa') }}" class="btn btn-primary">Cadastrar Nova Pessoa</a>
-    <a href="{{ url_for('index') }} " class="btn btn-primary">Página Inicial</a>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Página Inicial</a>
 {% endblock %}

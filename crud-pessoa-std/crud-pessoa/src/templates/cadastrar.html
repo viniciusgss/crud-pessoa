@@ -7,22 +7,22 @@
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" required>
         </div>
-        
+
         <div class="form-group">
             <label for="sobrenome">Sobrenome:</label>
             <input type="text" id="sobrenome" name="sobrenome" required>
         </div>
-        
+
         <div class="form-group">
             <label for="cpf">CPF:</label>
-            <input type="text" pattern="[0-9]{11}" maxlength="11" id="cpf" name="cpf">
+            <input type="text" pattern="[0-9]{11}" maxlength="11" id="cpf" name="cpf" required title="Digite exatamente 11 números">
         </div>
-        
+
         <div class="form-group">
             <label for="data_nascimento">Data de Nascimento:</label>
-            <input type="date" id="data_nascimento" name="data_nascimento" required>
+            <input type="date" id="data_nascimento" name="data_nascimento" min="1900-01-01" max="2025-12-31" required>
         </div>
-        
+
         <button type="submit">Cadastrar</button>
         <a href="{{ url_for('index') }}" class="btn">Cancelar</a>
     </form>
