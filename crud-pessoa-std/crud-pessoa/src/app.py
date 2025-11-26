@@ -19,16 +19,32 @@ def index():
 def cadastrar_pessoa():
     if request.method == 'POST':
         try:
+            nome = request.form.get('nome', '').strip()
+            sobrenome = request.form.get('sobrenome', '').strip()
+            cpf = request.form.get('cpf', '').strip()
+            data = request.form.get('data_nascimento', '').strip()
+
+            if not nome:
+                return 'Nome é obrigatório.', 400
+            if not sobrenome:
+                return 'Sobrenome é obrigatório.', 400
+            if not cpf:
+                return 'CPF é obrigatório.', 400
+            if not data:
+                return 'Data de nascimento é obrigatória.', 400
+
             PessoaController.salvar_pessoa(
-                request.form['nome'],
-                request.form['sobrenome'],
-                request.form['cpf'],
-                request.form['data_nascimento']
+                nome,
+                sobrenome,
+                cpf,
+                data
             )
-            flash('Pessoa cadastrada com sucesso!', 'success')
-            return redirect(url_for('listar_pessoas'))
+
+            return "Pessoa cadastrada com sucesso!", 200
+
         except Exception as e:
-            flash(f'Erro ao cadastrar: {str(e)}', 'danger')
+            return f"Erro ao cadastrar: {str(e)}", 500
+
     return render_template('cadastrar.html')
 
 @app.route('/listar')
