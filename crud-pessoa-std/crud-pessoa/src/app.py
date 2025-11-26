@@ -40,7 +40,7 @@ def cadastrar_pessoa():
                 data
             )
 
-            return "Pessoa cadastrada com sucesso!", 200
+            return "Pessoa cadastrada com sucesso", 200
 
         except Exception as e:
             return f"Erro ao cadastrar: {str(e)}", 500

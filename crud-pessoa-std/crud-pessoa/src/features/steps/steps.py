@@ -21,8 +21,7 @@ def step_impl(context, code):
 
 @then('a reposta deve conter "{msg}"')
 def step_impl(context, msg):
-    assert msg in context.response.text, \
-        f"Esperado '{msg}', mas recebi: {context.response.text}"
+    assert msg in context.response.text
 
 
  
